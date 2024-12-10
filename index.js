@@ -1,8 +1,11 @@
 import express from "express";
 import mongoose from "mongoose";
+import urlRoute from "./routes/urlRoute.js";
 import "dotenv/config";
 
 const app = express();
+
+app.use("/", urlRoute);
 
 app.listen(process.env.PORT, () => {
   mongoose
