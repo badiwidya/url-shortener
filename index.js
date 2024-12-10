@@ -1,13 +1,27 @@
 import express from "express";
+import cors from "cors";
 import mongoose from "mongoose";
 import urlRoute from "./routes/urlRoute.js";
 import "dotenv/config";
 
 const app = express();
 
+app.use(
+  cors({
+    origin: "*",
+    methods: ["GET", "POST"],
+  })
+);
 app.use(express.json());
 
-app.use("/", urlRoute);
+app.use("/api", urlRoute);
+app.get("/", (req, res) => {
+  res.status(200).json({
+    endpoint: "/api/url",
+    method: "POST",
+    "header-type": "application/json",
+  });
+});
 
 app.listen(process.env.PORT, () => {
   mongoose
