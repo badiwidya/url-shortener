@@ -2,6 +2,7 @@ import express from "express";
 import cors from "cors";
 import mongoose from "mongoose";
 import urlRoute from "./routes/urlRoute.js";
+import { getUrl } from "./controllers/urlController.js";
 import "dotenv/config";
 
 const app = express();
@@ -22,6 +23,7 @@ app.get("/", (req, res) => {
     "header-type": "application/json",
   });
 });
+app.get("/:url", getUrl);
 
 app.listen(process.env.PORT, () => {
   mongoose
