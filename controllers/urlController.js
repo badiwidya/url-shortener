@@ -29,9 +29,7 @@ export const shortUrl = async (req, res) => {
     });
   } catch (err) {
     res.status(500).json({
-      code: err.code,
-      type: err.type,
-      message: "AN ERROR OCCURED",
+      message: err.message || "Internal Server Error",
     });
   }
 };
@@ -50,9 +48,7 @@ export const getUrl = async (req, res) => {
     res.redirect(`${checkUrl.long_url}`);
   } catch (err) {
     res.status(500).json({
-      code: err.code,
-      type: err.type,
-      message: "AN ERROR OCCURED",
+      message: err.message || "Internal Server Error",
     });
   }
 };
