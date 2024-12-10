@@ -2,9 +2,9 @@ import generateString from "../utils/generateString.js";
 import URL from "../models/url.js";
 
 export const shortUrl = async (req, res) => {
-  const url = req.body.url;
   try {
-    const checkUrl = new URL(url);
+    const { url } = req.body;
+    const checkUrl = new url(url);
     if (!checkUrl) {
       return res.status(400).json({
         error: "Request must a valid url.",
@@ -17,11 +17,12 @@ export const shortUrl = async (req, res) => {
       checkNewUrl = await URL.find({
         short_url: newUrl,
       });
-    } while (checkNewUrl);
-    const generatedUrl = await URL.create({
+    } while (!checkNewUrl);
+    const generatedUrl = new URL({
       long_url: url,
       short_url: newUrl,
     });
+    await generatedUrl.save();
     res.status(201).json({
       message: "Generated successfully.",
       new_url: newUrl,
