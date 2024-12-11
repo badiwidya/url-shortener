@@ -1,15 +1,14 @@
 import generateString from "../utils/generateString.js";
 import URL from "../models/url.js";
+import { validationResult } from "express-validator";
 
 export const shortUrl = async (req, res) => {
+  const error = validationResult(req);
+  if (!error.isEmpty()) {
+    return res.status(400).json({ errors: error.array() });
+  }
   try {
     const { url } = req.body;
-    const checkUrl = new url(url);
-    if (!checkUrl) {
-      return res.status(400).json({
-        error: "Request must a valid url.",
-      });
-    }
     let checkNewUrl;
     let newUrl;
     do {
