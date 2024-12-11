@@ -13,4 +13,13 @@
 }
 ```
 
-**_Note: url must have http:// or https:// protocol. If not, the middleware will decline it._**
+## Sample Response
+
+```json
+{
+  "message": "Generated successfully.",
+  "new_url": "randomstringhere"
+}
+```
+
+The generated url can be accessed on example.com/new_url
